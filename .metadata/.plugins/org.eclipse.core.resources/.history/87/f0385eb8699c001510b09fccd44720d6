@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import org.lwjgl.opengl.GL20;
+import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL32.*;
+
+public class Shader {
+	
+	public void addVertexShader(String Text){
+		addProgram(Text,GL_VERTEX_SHADER);
+	}
+	public void addFragmentShader(String Text){
+		addProgram(Text,GL_FRAGMENT_SHADER);
+	}
+	public void addGeometryShader(String Text){
+		addProgram(Text,GL_GEOMETRY_SHADER);
+	}
+	
+	public String load(String fileName, boolean isExternal){
+			StringBuilder ShaderString = new StringBuilder();
+			BufferedReader ShaderReader = null;
+			
+			 try {
+				if(isExternal)ShaderReader = new BufferedReader(new FileReader( "./Shaders/" + fileName));
+				else ShaderReader = new BufferedReader(new InputStreamReader(Shader.class.getResourceAsStream(("/Shaders/"+fileName))));
+				String Line;
+
+					while((Line = ShaderReader.readLine()) != null){
+						ShaderString.append(Line).append("\n");
+					}
+					ShaderReader.close();
+					}
+			 catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			return ShaderString.toString();
+		}
+	
+}

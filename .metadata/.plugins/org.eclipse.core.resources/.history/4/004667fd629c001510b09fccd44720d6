@@ -1,0 +1,11 @@
+
+
+public class Main {
+ static Core core;
+ static Game game;
+ public static void main(String args){
+	 core = new Core(game, 1280, 720, 60);
+ }
+	
+}
+
